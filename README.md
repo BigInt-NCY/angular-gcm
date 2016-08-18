@@ -11,8 +11,6 @@ Angular-gcm is a simple directive allowing users to subscribe to Google Cloud Me
 - Then select *APIs & auth* from the sidebar and click on *Credentials* tab
 - Click **CREATE NEW Key** button
  - **Server Key**
-- Again click **CREATE NEW Key** button
- - **Browser Key**
 
 ### Add GCM to your project
 
@@ -35,11 +33,12 @@ bower install angular-gcm
 ```html
 <head>
 	...
-    <link rel="manifest" href="manifest.json">
-    ...
+	<link rel="manifest" href="manifest.json">
+	...
+</head>
 ```
 
- - Place `service-worker.json` on your root domain and edit it to suite you needs.
+ - Place `service-worker.js` on your root domain and edit it to suite you needs.
 
  - Declare `angular-gcm.js` script.
 
@@ -48,21 +47,21 @@ bower install angular-gcm
 In your template :
 
 ```html
-<gcm callback="gcmSend" gcmapikey="'your_gcm_browser_key'"></gcm>
+<gcm callback="gcmSend"></gcm>
 ```
 
 or
 ```html
 <!-- activate = button text to enable notifications -->
 <!-- disable = button text to disable notifications -->
-<gcm callback="gcmSend" activate="'Enable notif'" disable="'Disable notif'" gcmapikey="'your_gcm_browser_key'"></gcm>
+<gcm callback="gcmSend" activate="'Enable notif'" disable="'Disable notif'"></gcm>
 ```
 In your controller :
 
 ```javascript
-		$scope.gcmSend = function(sub) {
+		$scope.gcmSend = function(subscriptionId) {
 			// send token to server and save it
-			$http.post('your_server_url', {"token" : sub.subscriptionId})
+			$http.post('your_server_url', {"token" : subscriptionId})
 			...
 		}
 ```
