@@ -1,6 +1,6 @@
 ## Angular Google Cloud Messaging
 
-Angular-gcm is a simple directive allowing users to subscribe to Google Cloud Messaging API by clicking a button.
+Angular-gcm is a simple service allowing users to subscribe to Google Cloud Messaging API.
 
 ## Setup
 
@@ -43,28 +43,18 @@ bower install angular-gcm
  - Declare `angular-gcm.js` script.
 
 ### Use it
-
-In your template :
-
-```html
-<gcm callback="gcmSend"></gcm>
-```
-
-or
-```html
-<!-- activate = button text to enable notifications -->
-<!-- disable = button text to disable notifications -->
-<gcm callback="gcmSend" activate="'Enable notif'" disable="'Disable notif'"></gcm>
-```
-In your controller :
-
+in your app :
 ```javascript
-		$scope.gcmSend = function(subscriptionId) {
-			// send token to server and save it
-			$http.post('your_server_url', {"token" : subscriptionId})
-			...
-		}
+	.run(['$rootScope', 'Server', function ($rootScope, Server) {
+		$rootScope.serviceWorkerUrl = Server.baseUrl + '/service-worker.js';
+		$rootScope.subscribePostUrl = Server.baseUrl + '/register';
+	}])
 ```
+
+available function:
+ - changeState ( subscribe/ unsubscribe )
+ - getState
+ - getSubscriptionId
 
 ***note : you need to have an https website to allow users to subscribe***
 
